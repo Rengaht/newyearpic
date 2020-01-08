@@ -1,0 +1,119 @@
+html{
+	 touch-action:none;
+}
+@font-face{
+    font-family: custom-font;
+    src: url("../../asset/font/GenJyuuGothic-Medium.ttf");
+}
+body{
+	font-family: custom-font;
+	border:0;
+	margin:0;
+	background-color: #FE3264;
+	background-image: url("../../asset/img/back_bgd.png");
+	background-repeat: repeat;
+	outline:none;
+}
+*:focus {
+    outline: none;
+}
+
+div{
+	transition:opacity .5s ease-out 0.5s;
+}
+.Container{
+	position: absolute;
+	width:100%;
+	top:0;
+	bottom:0;
+
+	padding: 0;
+  	margin: 0;
+  	list-style: none;
+  	display: flex;
+  	flex-direction:column;
+  	align-items: center;
+  	justify-content: center;
+  	
+
+}
+.Row{
+	width:auto;	
+}
+.Button{
+	cursor: pointer;
+	z-index: 20;
+}
+.hidden{
+	/*display: none !important;*/
+	opacity: 0;
+	transition:opacity .5s ease-out;
+}
+.close{
+	display:none;
+}
+
+#_btn_home{
+	position: absolute;
+	top:77px;
+	left:75px;
+	z-index: 10;
+}
+.CloudWrapper{
+	display: flex;
+  	flex-direction:column;
+  	align-items: center;
+}
+.CloudWrapper.Big{
+	height:304px;	
+}
+.CloudWrapper.Small{
+	height:115px;	
+}
+.CloudWrapper>img{
+	position: absolute;
+}
+.TextInput{
+
+	width:1247px;
+	height:139px;
+	border-radius:80px;
+	border:none;
+	padding:100px;
+
+
+	font-family: custom-font;
+	font-size:96px;
+	color:#007B95;
+	text-align: center;
+
+
+}
+.QRcodeWrapper{
+	width:540px;
+	height:540px;
+	
+	border-radius:66px;
+	border:none;
+
+	display: flex;
+  	flex-direction:column;
+  	align-items: center;
+
+	background-color: white;
+}
+.QRcode{
+	margin-top:91px;
+	width:358px;
+	height:358px;
+	background-color:#FF3264;
+}
+
+#_title_animation_wrapper{
+	position: absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index: -10;
+}

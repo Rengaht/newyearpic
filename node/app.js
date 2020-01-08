@@ -14,7 +14,7 @@ var _client_cpp,_client_js;
 wws.on('connection',ws=>{
 	
 	console.log('connected!!!');
-	ws.send('hello from server!');
+	//ws.send('hello from server!');
 
 	ws.on('close',()=>{
 		console.log('Close connected!');
