@@ -6,11 +6,25 @@
 	<link rel="stylesheet" type="text/css" href="src/css/main.css">
 	<script src="src/js/page.js"></script>
 	<script src="src/js/utils.js"></script>
+	<script src="src/js/data.js"></script>
+	<script src="src/lib/qrcode.js"> </script>
+	
+
 	<script src="src/lib/jquery-3.3.1.min.js"> </script>
 	<script src='src/lib/spritespin.js' type='text/javascript'></script>
 </head>
 <body>
-	<img class="Button" src="asset/img/button_home.png" onclick="onClickHome()" id="_btn_home"/>
+	<audio id="_sound_button">
+    	<source src="asset/sound/button.wav" type="audio/wav">
+	</audio>
+	<audio id="_sound_error">
+    	<source src="asset/sound/error.wav" type="audio/wav">
+	</audio>
+	<audio id="_sound_finish">
+    	<source src="asset/sound/finish.mp3" type="audio/mp3">
+	</audio>
+	
+	<img class="Button Disable hidden close" src="asset/img/home_2.png" onclick="onClickHome()" id="_btn_home"/>
 
 	<div id="_page_home" class="Container">
 		
@@ -21,76 +35,91 @@
 			<div id="_title_animation"></div>
 		</div>
 		<div class="Row" style="margin-top:866px">
-			<img class="Button" src="asset/img/button_start.png" onclick="onClickStart()" id="_btn_start"/>
+			<img class="Button" src="asset/img/button_1.png" onclick="onClickStart()" id="_btn_start"/>
 		</div>
 	</div>
 	<div id="_page_record" class="Container hidden close">
-		<div class="Row" style="margin-top:279px">
-			<div class="CloudWrapper Big">
-				<img src="asset/img/cloud_record.png">
-				<img src="asset/img/title_record.png">
+		<div class="Row hidden close" style="margin-top:279px">
+			<div class="CloudWrapper Record">
+				<img src="asset/img/cloud_2.png">
+				<img src="asset/img/title_2.png">
 			</div>
 		</div>
-		<div class="Row" style="margin-top:73px">
-			<img src="asset/img/content_record.png" class="Hint">
+		<div class="Row hidden close" style="margin-top:73px">
+			<img src="asset/img/content_2.png" class="Hint">
 		</div>
-		<div class="Row" style="margin-top:68px">
-			<img class="Button" src="asset/img/button_again.png" onclick="onClickRecordAgain()" id="_btn_again" style="margin-right:105px"/>
-			<img class="Button" src="asset/img/button_finish.png" onclick="onClickFinishRecord()" id="_btn_next"/>
+		<div class="Row hidden close" style="margin-top:68px">
+			<img class="Button" src="asset/img/button_2.png" onclick="onClickRecordAgain()" id="_btn_again" style="margin-right:105px"/>
+			<img class="Button" src="asset/img/button_2_2.png" onclick="onClickFinishRecord()" id="_btn_next"/>
 		</div>
 	</div>
 	<div id="_page_edit" class="Container hidden close">
-		<div class="Row" style="margin-top:84px">
-			<div class="CloudWrapper Small">
-				<img src="asset/img/cloud_edit.png">
-				<img src="asset/img/title_edit.png">
+		<div class="Row hidden close" style="margin-top:84px">
+			<div class="CloudWrapper Title">
+				<img src="asset/img/cloud_3.png">
+				<img src="asset/img/title_3.png">
 			</div>
 		</div>
-		<div class="Row" style="margin-top:56px">
-			<input type="text" id="_text_name" class="TextInput" placeholder="輸入名字" />
+		<div class="Row hidden close" style="margin-top:98px">
+			<input type="text" id="_text_name" class="TextInput" placeholder="輸入名字" maxlength="10" />
 		</div>
-		<div class="Row" style="margin-top:24px">
-			<input type="text" id="_text_wish" class="TextInput" placeholder="輸入新年願望"/>
+		<div class="Row hidden close" style="margin-top:44px">
+			<input type="text" id="_text_wish" class="TextInput" placeholder="輸入新年願望" maxlength="20"/>
 		</div>
-		<div class="Row" style="margin-top:56px">
-			<img class="Button" src="asset/img/button_finish.png" onclick="onClickFinish()" id="_btn_finish"/>
+		<div class="Row hidden close" style="position:relative;top:50px">
+			<img class="Button" src="asset/img/button_3.png" onclick="onClickFinish()" id="_btn_finish"/>			
+			<div class="ErrorHint hidden" id="_error_text">*不可空白</div>		
 		</div>
 	</div>
 	<div id="_page_share" class="Container hidden close">
-		<div class="Row" style="margin-top:84px">
-			<div class="CloudWrapper Small">
-				<img src="asset/img/cloud_edit.png">
-				<img src="asset/img/title_share.png">
+		<div class="Row hidden close" style="margin-top:84px">
+			<div class="CloudWrapper Title">
+				<img src="asset/img/cloud_3.png">
+				<img src="asset/img/title_4.png">
 			</div>
 		</div>
-		<div class="Row" style="margin-top:65px">
+		<div class="Row hidden close" style="margin-top:120px">
 			<div class="QRcodeWrapper">
-				<div class="QRcode"></div>
+				<div class="QRcode" id="_record_qrcode"></div>
 			</div>
 		</div>
-		<div class="Row" style="margin-top:62px">
-			<img class="Button" src="asset/img/button_info.png" id="_btn_info" onClick="onClickInfo()"/>
+		<div class="Row hidden close" style="margin-top:80px">
+			<img class="Button" src="asset/img/button_4.png" id="_btn_info" onClick="onClickInfo()"/>
 		</div>
 	</div>
 	<div id="_page_info" class="Container hidden close">
-		<div class="Row" style="margin-top:84px">
-			<div class="CloudWrapper Small">
-				<img src="asset/img/cloud_edit.png">
-				<img src="asset/img/title_share.png">
+		<div class="Row hidden close" style="margin-top:84px">
+			<div class="CloudWrapper Title">
+				<img src="asset/img/cloud_3.png">
+				<img src="asset/img/title_5.png">
 			</div>
 		</div>
-		<div class="Row" style="margin-top:56px">
-			<input type="text" id="_text_info_name" class="TextInput" placeholder="輸入名字"/>
+		<div class="Row hidden close" style="margin-top:66px">
+			<img src="asset/img/content_5.png">
 		</div>
-		<div class="Row" style="margin-top:24px">		
-			<input type="text" id="_text_info_phone" class="TextInput" placeholder="輸入電話"/>
+		<div class="Row hidden close" style="margin-top:61px">
+			<input type="text" id="_text_info_name" class="TextInput" placeholder="輸入名字" maxlength="10"/>
+		</div>
+		<div class="Row hidden close" style="margin-top:44px">		
+			<input type="phone" id="_text_info_phone" class="TextInput" placeholder="輸入電話" maxlength="20"/>
 		</div>
 
-		<div class="Row" style="margin-top:56px">
-			<img class="Button" src="asset/img/button_send.png" onclick="onClickSend()" id="_btn_send"/>
+		<div class="Row hidden close" style="position:relative;top:50px">
+			<img class="Button" src="asset/img/button_5.png" onclick="onClickSend()" id="_btn_send"/>			
+			<div class="ErrorHint hidden" id="_error_info">*不可空白</div>			
 		</div>
 	</div>	
-	
+	<div id="_page_finish" class="Container hidden close">
+		<div class="Row hidden close" >
+			<div class="CloudWrapper Finish">
+				<img src="asset/img/cloud_6.png">
+				<img src="asset/img/title_6.png">
+			</div>
+		</div>
+		<div class="Row hidden close" style="margin-top:106px">
+			<img src="asset/img/content_6.png">
+		</div>
+	</div>	
 </body>
 
 </html>
