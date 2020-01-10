@@ -68,6 +68,7 @@ function onSpeachRecognitionResult(event){
   		stopRecognition();
   	}
   	text_.slice(0,Math.min(MAX_TEXT_LENGTH,text_.length));
+  	text_=text_.toUpperCase().replace(/ /g,'');
 
   	$('#_text_wish').val(text_);
 

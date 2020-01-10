@@ -4,11 +4,14 @@ var _guid;
 function addInputCheck(){
 	$('#_text_name').bind("change paste keyup",function(){
 		resetSleepTimer();
-		toggleTextError(false);
+		toggleTextError(false);		
+
+		$('#_text_name').val($('#_text_name').val().replace(/ /g,'').toUpperCase());
 	});
 	$('#_text_wish').bind("change paste keyup",function(){
 		resetSleepTimer();
 		toggleTextError(false);
+		$('#_text_wish').val($('#_text_wish').val().replace(/ /g,'').toUpperCase());
 	});
 
 	$('#_text_info_name').bind("change paste keyup",function(){
@@ -47,6 +50,9 @@ function checkTextInput(){
 	var error_text="";
 	if($('#_text_name').val().length<1) error_text=error_text+"*姓名不可空白\n";
 	if($('#_text_wish').val().length<1) error_text=error_text+"*新年願望不可空白\n";
+
+	$('#_text_name').val($('#_text_name').val().replace(/ /g,'').toUpperCase());
+	$('#_text_wish').val($('#_text_wish').val().replace(/ /g,'').toUpperCase());
 
 	toggleTextError(error_text.length>0,error_text);
 	return error_text.length==0;
