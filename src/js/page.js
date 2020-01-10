@@ -78,6 +78,7 @@ function setPage(set_){
 		case '_page_record':	
 			setHideHomeButton(false,ttime);
 			_websocket.send('/start');		
+
 			break;
 		case '_page_edit':
 			toggleTextError(false);
@@ -208,11 +209,11 @@ function showItem(item_){
 	if(!item_.hasClass('hidden')) return;
 	
 	item_.removeClass('close');
-	item_.children().removeClass('close');
+	item_.children().not("#_button_record").removeClass('close');
 	
 	setTimeout(function(){		
 		item_.removeClass('hidden');		
-		item_.children().removeClass('hidden');
+		item_.children().not("#_button_record").removeClass('hidden');
 	},10);
 }
 

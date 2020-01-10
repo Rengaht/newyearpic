@@ -57,6 +57,13 @@ function onSpeachRecognitionResult(event){
   	}
 
 	// check length  	
+	if(text_.length>0 && $('#_button_record').hasClass('hidden')){
+		 $('#_button_record').removeClass('close');
+		setTimeout(function(){		
+			 $('#_button_record').removeClass('hidden');		
+		},10);
+	}
+
   	if(text_.length>MAX_TEXT_LENGTH){
   		stopRecognition();
   	}
@@ -65,11 +72,12 @@ function onSpeachRecognitionResult(event){
   	$('#_text_wish').val(text_);
 
 
- 	_websocket.send(text_to_send); 
+ 	_websocket.send(text_); 
  	
  	
 }
 function startRecognition(){
+	$('#_text_wish').val('');
 	_speah_recognition.start();
 }
 function stopRecognition(){
