@@ -51,7 +51,7 @@
 				while(checkDuplicateID($conn,$guid)) $guid=random_strings($idlength);
 
 				// todo: by order??
-				$frame_type=mt_rand()%2;
+				$frame_type=mt_rand()%3;
 
 
 				// write to db!!!

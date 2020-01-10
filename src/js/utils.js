@@ -57,7 +57,7 @@ function onSpeachRecognitionResult(event){
   	}
 
 	// check length  	
-	if(text_.length>0 && $('#_button_record').hasClass('hidden')){
+	if(text_.length>0){
 		 $('#_button_record').removeClass('close');
 		setTimeout(function(){		
 			 $('#_button_record').removeClass('hidden');		
