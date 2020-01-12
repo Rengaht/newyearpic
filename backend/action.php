@@ -80,7 +80,25 @@
 				echo json_encode($json);
 				break;
 			case 'load_pic':
-			
+				$cmd='SELECT wish_name,wish_text,frame_type FROM user_data WHERE store="'.$_POST['store'].'" ORDER BY timestamp DESC LIMIT '.$_POST['limit'];
+				$result=$conn->query($cmd);
+				if($result->num_rows>0){
+
+					$json['pic']=[];
+
+					while($row = $result->fetch_assoc()){
+						$tmp['name']=$row['wish_name'];
+						$tmp['text']=$row['wish_text'];
+						$tmp['type']=$row['frame_type'];
+
+						array_push($json['pic'],$tmp);
+					}
+				}else{
+					$json['error']='fetch empty!';
+					$json['cmd']=$cmd;
+				}
+				echo json_encode($json);
+
 				break;
 		
 			case 'add_info':
