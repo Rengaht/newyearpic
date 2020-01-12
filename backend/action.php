@@ -43,6 +43,8 @@
 	try{
 		
 		$get_action=isset($_POST['action']) ? $_POST['action'] : NULL;
+		$json['action']=$get_action;
+
 		switch($get_action){
 			case 'add_pic':
 				
@@ -77,6 +79,18 @@
 				//$json['size']=$_FILES['file']['size'];					
 				$json['share_url']=$share_url.$guid;
 				
+				echo json_encode($json);
+				break;
+			case 'upload':
+				if($_FILES['file']['error']>0){
+					$json['result']='fail: file error';
+				}else{
+					
+					$guid=$_POST['guid'];
+					move_uploaded_file($_FILES['file']['tmp_name'],'./output/'.$guid.'.gif');	
+					$json['result']='success';
+					$json['user_id']=$guid;
+				}
 				echo json_encode($json);
 				break;
 			case 'load_pic':

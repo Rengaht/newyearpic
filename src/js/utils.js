@@ -10,6 +10,14 @@ function connectToWebsocket(){
     _websocket.onerror=event=>{
         console.log('ws: websocket error: ',event);
     };   
+    _websocket.onmessage=event=>{
+    	console.log('ws: websocket message: ',event.data);
+    	var str_=event.data.split("|");
+
+    	if(str_[1]===_guid){
+    		setPage('_page_share');
+    	}
+    };
 }
 
 function sendTextUpdate(){
