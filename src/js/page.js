@@ -1,5 +1,6 @@
-const MAX_TEXT_LENGTH=20;
+const MAX_TEXT_LENGTH=15;
 const TRANSITION_DELAY=2500;
+const TIME_TO_SLEEP=90000;
 
 var _websocket;
 var _speah_recognition;
@@ -11,11 +12,36 @@ var _record_qrcode;
 
 var _repeat_count;
 
+// sleep //
+var _timer_sleep;
+
+var console=(function(oldCons){
+	return {
+	    log: function(text){
+	        oldCons.log(text);     
+	        if(_websocket && _websocket.readyState==1) 
+	        	_websocket.send('/log '+text); 	
+	    },
+	    info: function (text) {
+	        oldCons.info(text);
+	    },
+	    warn: function (text) {
+	        oldCons.warn(text);
+	    },
+	    error: function (text) {
+	        oldCons.error(text);	        
+	        if(_websocket && _websocket.readyState==1) 
+	        	_websocket.send('/log '+text);  	
+	    }
+	};
+}(window.console));
+window.console = console;
+	
+
 window.onload=function(){
 	$.getJSON("_param.json", function(json){
 		PARAM=json;
-		// console.log(json);
-		// sendJandiLog('set up');
+		sendLog('set_up',PARAM.MACHINE_ID);
 	});
 	loadBackImage();
 	addInputCheck();
@@ -32,11 +58,10 @@ window.onload=function(){
 	connectToWebsocket();
 	setupSpeachRecognition();
 
-	$('#_text_wish').bind("change keyup",function(){
-		sendTextUpdate();
-	});
-
+	
 	_cur_page='_page_home';
+	
+
 }
 
 function getPageTransitionDelay(page_){
@@ -63,7 +88,8 @@ function setPage(set_){
 		case '_page_home':
 			
 			setHideHomeButton(true);
-			
+			clearSleepTimer();
+
 			_websocket.send('/home');	
 			stopRecognition();
 			_record_qrcode.clear();
@@ -126,20 +152,35 @@ function setHideHomeButton(set_,time_){
 }
 
 function onClickStart(){
+	
+	resetSleepTimer();
+
 	if($('#_btn_start').hasClass('Disable')) return;
 
 	playSound('button');
 	setPage('_page_record');
 	//startRecognition();
+
+	sendLog('user_enter');
+	
 }
 function onClickFinishRecord(){
+	
+	resetSleepTimer();
 	if($('#_btn_next').hasClass('Disable')) return;
 	
 	playSound('button');
 	stopRecognition();
+
 	setPage('_page_edit');
+	_websocket.send('/edit');
+
+	
 }
 function onClickRecordAgain(){
+
+	resetSleepTimer();
+
 	if($('#_btn_again').hasClass('Disable')) return;
 
 	if(_repeat_count<0) return;
@@ -159,6 +200,8 @@ function onClickRecordAgain(){
 
 }
 function onClickFinish(){
+	
+	clearSleepTimer();
 
 	if($('#_btn_finish').hasClass('Disable')) return;
 	
@@ -173,12 +216,18 @@ function onClickFinish(){
 	sendUserPic();
 }
 function onClickInfo(){
+
+	resetSleepTimer();
+
 	if($('#_btn_info').hasClass('Disable')) return;
 
 	playSound('button');
 	setPage('_page_info');
 }
 function onClickSend(){
+	
+	clearSleepTimer();
+
 	if($('#_btn_send').hasClass('Disable')) return;
 	
 	if(!checkWishInput()){
@@ -191,6 +240,8 @@ function onClickSend(){
 	sendUserInfo();
 }
 function onClickHome(){
+	
+	resetSleepTimer();
 
 	setPage('_page_home');
 	playSound('button');
@@ -266,4 +317,28 @@ function playSound(type_){
 			document.getElementById('_sound_error').play();
 			break;		
 	}
+}
+
+function clearSleepTimer(){
+	if(_timer_sleep!==null) clearTimeout(_timer_sleep);
+}
+function resetSleepTimer(){	
+	clearSleepTimer();
+	_timer_sleep=setTimeout(function(){
+		console.log('----------- go sleep -----------');
+		setPage('_page_home');
+	},TIME_TO_SLEEP);
+}
+
+function sendLog(type_,message_){
+
+	switch(type_){
+		case 'user_enter':
+			sendUserEnterRecord();
+			break;
+		default:
+			sendJandiLog('['+type_+'] '+message_);
+			break;		
+	}
+
 }

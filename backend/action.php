@@ -128,6 +128,15 @@
 				}
 				echo json_encode($json);
 				break;
+			case 'user_enter':
+				$log='INSERT INTO record_log (store) VALUES ("'.$_POST['store'].'")';
+				if($conn->query($log)===TRUE){
+					$json['log']='success';
+				}else{
+					$json['log']='something wrong';
+				}
+				echo json_encode($json);
+				break;
 			default:
 				echo 'invalid action: '.$get_action;		
 				break;				

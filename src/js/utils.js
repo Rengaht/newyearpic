@@ -3,6 +3,7 @@ function connectToWebsocket(){
 	_websocket.onopen=()=>{
         console.log('ws: open connection');
         _websocket.send('hello from js!');
+        _websocket.send('/home');
     };
     _websocket.onclose=()=>{
         console.log('ws: close connection');
@@ -19,8 +20,12 @@ function connectToWebsocket(){
 		    		//setPage('_page_share');
 		    		hideItem($('#_qrcode_spinner'));
 					showItem($('#_record_qrcode'));
+					showItem($('#_btn_info'));
 
 					playSound('finish');
+
+					sendLog('gif_upload','finish');
+					resetSleepTimer();
 		    	}
 		    	break;
 		    case '/input':
@@ -28,6 +33,9 @@ function connectToWebsocket(){
 		    	$('#_btn_next').addClass('Disable');
 		    	$('#_btn_again').addClass('Disable');
 		    	showItem($('#_button_record'));
+
+		    	resetSleepTimer();
+
 		    	break;
 		}
     };
@@ -57,6 +65,12 @@ function onSpeachRecognitionStart(){
 }
 function onSpeachRecognitionStop(){
 	console.log("stop speach...");
+
+	if(_cur_page==='_page_record'){
+		var text_=$('#_text_wish').val();
+		if(text_.length<1) setPage('_page_home');
+	}
+
 }
 function onSpeachRecognitionResult(event){
 	console.log(event);
@@ -91,7 +105,7 @@ function onSpeachRecognitionResult(event){
   	text_=text_.toUpperCase().replace(/ /g,'');
 
   	$('#_text_wish').val(text_);
-	_websocket.send(text_); 
+	_websocket.send('/text|'+text_); 
  	
  	if(text_.length>=MAX_TEXT_LENGTH){
  		stopRecognition();

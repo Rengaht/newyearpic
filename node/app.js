@@ -20,7 +20,8 @@ wws.on('connection',ws=>{
 		console.log('Close connected!');
 	});
 	ws.on('message',data=>{
-		console.log('get message: '+JSON.stringify(data));		
+		var t=new Date();
+		console.log(t.toISOString()+' get message: '+JSON.stringify(data));		
 			
 		if(data==='hello from js!'){
 			console.log("set js client");
@@ -32,8 +33,19 @@ wws.on('connection',ws=>{
 
 			if(_client_js) _client_js.send(data);
 
+		}else if(data.includes('/log')){
+
+		}else if(data.includes('/text')){
+			if(_client_cpp){
+
+				var str_=data.split('|');
+				if(str_.length>1)
+					_client_cpp.send(str_[1]);	
+			} 
 		}else{
-			if(_client_cpp) _client_cpp.send(data);
+			if(_client_cpp){
+				_client_cpp.send(data);	
+			} 
 		}
 	});
 });

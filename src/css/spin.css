@@ -34,3 +34,89 @@
     transform: rotate(360deg);
   }
 }
+
+
+.CloudLeft{
+  position: absolute;
+  top:287;
+  left:278;
+
+  width:694px;
+  height:122px;
+  background-image: url('../../asset/img/cloud_2.png');
+  background-position-x:left;
+  display: inline-block;
+  animation: float-left 4s ease-in-out infinite;
+}
+.CloudRight{
+  position: absolute;
+  top:287;
+  right:255;
+  
+  width:694px;
+  height:122px;
+  background-image: url('../../asset/img/cloud_2.png');
+  background-position-x:right;
+  display: inline-block;
+   animation: float-right 4s ease-in-out infinite;
+}
+
+@keyframes float-left {
+  0% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}
+
+@keyframes float-right {
+  0% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}
+
+.CloudLeft.Title{
+  top:84;
+  left:351;
+
+  width:624px;
+  height:111px;
+  background-image: url('../../asset/img/cloud_3.png');  
+}
+.CloudRight.Title{
+  top:84;
+  right:320;
+  
+  width:624px;
+  height:111px;
+  background-image: url('../../asset/img/cloud_3.png');
+  
+}
+
+.CloudLeft.Finish{
+  top:329;
+  left:162;
+
+  width:803px;
+  height:201px;
+  background-image: url('../../asset/img/cloud_6.png');  
+}
+.CloudRight.Finish{
+  top:329;
+  right:152;
+  
+  width:803px;
+  height:201px;
+  background-image: url('../../asset/img/cloud_6.png');
+  
+}
