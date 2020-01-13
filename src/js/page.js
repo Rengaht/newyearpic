@@ -9,6 +9,7 @@ var _in_transition=false;
 
 var _record_qrcode;
 
+var _repeat_count;
 
 window.onload=function(){
 	$.getJSON("_param.json", function(json){
@@ -78,7 +79,7 @@ function setPage(set_){
 		case '_page_record':	
 			setHideHomeButton(false,ttime);
 			_websocket.send('/start');		
-
+			_repeat_count=2;
 			break;
 		case '_page_edit':
 			toggleTextError(false);
@@ -129,7 +130,7 @@ function onClickStart(){
 
 	playSound('button');
 	setPage('_page_record');
-	startRecognition();
+	//startRecognition();
 }
 function onClickFinishRecord(){
 	if($('#_btn_next').hasClass('Disable')) return;
@@ -140,7 +141,10 @@ function onClickFinishRecord(){
 }
 function onClickRecordAgain(){
 	if($('#_btn_again').hasClass('Disable')) return;
-	
+
+	if(_repeat_count<0) return;
+
+
 	stopRecognition();
 	$('#_text_wish').val('');
 	
@@ -149,6 +153,10 @@ function onClickRecordAgain(){
 	setTimeout(function(){
 		startRecognition();	
 	},100);
+
+	_repeat_count--;
+	if(_repeat_count<=0) hideItem($('#_btn_again'));
+
 }
 function onClickFinish(){
 

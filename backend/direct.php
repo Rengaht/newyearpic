@@ -17,8 +17,11 @@
 		<link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC:700&display=swap" rel="stylesheet">
 		<style type="text/css">
 			body{
+				border:0;
+				margin:0;
 				background-color: #FE3264;
-				color:white;
+				background-image: url("img/back_bgd.png");
+				background-repeat: repeat;
 				font-family: 'Noto Serif TC', serif;
 				letter-spacing: 5px;
 			}
@@ -35,15 +38,15 @@
 				vertical-align: middle;
 			}
 			.share_img{
-				margin-top:20px;			
+				margin-top:80px;			
 				height:50%;
 				max-width: 90%;
 				border:5px white solid;
 				box-shadow: 12px 12px 7px rgba(0, 0, 0, 0.2);
 			}
 			.share_button{
-				margin-top:20px;
-				height:10%;
+				margin-top:50px;
+				/*height:10%;*/
 				cursor: pointer;
 			}
 			.center{
@@ -52,10 +55,9 @@
 				margin-left: auto;
 				margin-right: auto;
 			}
-			.shareText{
-				font-size: 3em;
-				margin-bottom: 50px;
-				margin-top: 50px;
+			.title_img{
+				margin-top: 80px;
+				height:20%;			
 			}
 		</style>
 		<script type="text/javascript">
@@ -80,11 +82,11 @@
 	<body>		
 		<div class="vertCenterWrapper">
 			<div class="vertCenterChild RedirectText">
-				<p class="center shareText">分享你的歲朝圖!</p>
+				<img class="title_img center" src="img/share-09.png"/>
 				<?php 
 					echo '<img class="share_img center" src="'.$img_url.'"/>';
 				?>
-			<img class="center share_button" onclick="onShareclick()" src="img/share.png"/> 
+			<img class="center share_button" onclick="onShareclick()" src="img/share-08.png"/> 
 
 			</div>
 		</div>

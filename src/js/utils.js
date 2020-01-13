@@ -13,10 +13,23 @@ function connectToWebsocket(){
     _websocket.onmessage=event=>{
     	console.log('ws: websocket message: ',event.data);
     	var str_=event.data.split("|");
+    	switch(str_[0]){
+    		case '/upload':
+		    	if(str_[1]===_guid){
+		    		//setPage('_page_share');
+		    		hideItem($('#_qrcode_spinner'));
+					showItem($('#_record_qrcode'));
 
-    	if(str_[1]===_guid){
-    		setPage('_page_share');
-    	}
+					playSound('finish');
+		    	}
+		    	break;
+		    case '/input':
+		    	startRecognition();
+		    	$('#_btn_next').addClass('Disable');
+		    	$('#_btn_again').addClass('Disable');
+		    	showItem($('#_button_record'));
+		    	break;
+		}
     };
 }
 
@@ -59,30 +72,31 @@ function onSpeachRecognitionResult(event){
   		var tmp_=event.results[i][0].transcript;
   		tmp_=tmp_.slice(0,Math.min(MAX_TEXT_LENGTH-count_,tmp_.length));
   		text_+=tmp_
-  		text_to_send+=tmp_+'|';
+  		//text_to_send+=tmp_+'|';
 
   		count_+=tmp_.length;
   	}
 
 	// check length  	
 	if(text_.length>0){
-		 $('#_button_record').removeClass('close');
-		setTimeout(function(){		
-			 $('#_button_record').removeClass('hidden');		
-		},10);
+		$('#_btn_next').removeClass('Disable');
+		$('#_btn_again').removeClass('Disable');		    	
+		//  $('#_button_record').removeClass('close');
+		// setTimeout(function(){		
+		// 	 $('#_button_record').removeClass('hidden');		
+		// },10);
 	}
 
-  	if(text_.length>MAX_TEXT_LENGTH){
-  		stopRecognition();
-  	}
   	text_.slice(0,Math.min(MAX_TEXT_LENGTH,text_.length));
   	text_=text_.toUpperCase().replace(/ /g,'');
 
   	$('#_text_wish').val(text_);
-
-
- 	_websocket.send(text_); 
+	_websocket.send(text_); 
  	
+ 	if(text_.length>=MAX_TEXT_LENGTH){
+ 		stopRecognition();
+ 		onClickFinishRecord();
+ 	}
  	
 }
 function startRecognition(){

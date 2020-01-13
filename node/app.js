@@ -28,10 +28,7 @@ wws.on('connection',ws=>{
 		}else if(data==='hello from of!'){
 			console.log("set cpp client");
 			_client_cpp=ws;
-		}else if(data.includes('/upload')){
-
-			var str_=data.split("|");
-			console.log('upload gif finish id='+str_[1]);
+		}else if(data.includes('/upload') || data.includes('/input')){
 
 			if(_client_js) _client_js.send(data);
 

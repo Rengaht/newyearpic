@@ -74,7 +74,7 @@ div{
 	transition:opacity .5s ease-out;
 }
 .close{
-	display:none;
+	display:none !important;
 }
 
 #_btn_home{

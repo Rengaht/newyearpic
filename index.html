@@ -4,6 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 	<link rel="stylesheet" type="text/css" href="src/css/main.css">
+	<link rel="stylesheet" type="text/css" href="src/css/spin.css">
 	<script src="src/js/page.js"></script>
 	<script src="src/js/utils.js"></script>
 	<script src="src/js/data.js"></script>
@@ -80,7 +81,8 @@
 		</div>
 		<div class="Row hidden close" style="margin-top:120px">
 			<div class="QRcodeWrapper">
-				<div class="QRcode" id="_record_qrcode"></div>
+				<div id="_qrcode_spinner"class="lds-ring"><div></div><div></div><div></div><div></div></div>
+				<div class="QRcode hidden close" id="_record_qrcode"></div>
 			</div>
 		</div>
 		<div class="Row hidden close" style="margin-top:80px">

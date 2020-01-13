@@ -98,7 +98,10 @@ function sendUserPic(){
 
 			if(_cur_page==='_page_edit') {
 				_websocket.send('/name|'+response.wish_name+'|'+response.frame_type+'|'+response.user_id);				
-				//setPage('_page_share');				
+				
+				showItem($('#_qrcode_spinner'));
+				hideItem($('#_record_qrcode'));
+				setPage('_page_share');				
 			}
 		}
 	});
